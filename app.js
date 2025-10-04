@@ -3,6 +3,8 @@ const form = document.getElementById('task-form');
 const input = document.getElementById('task-input');
 const listEl = document.getElementById('task-list');
 const counterEl = document.getElementById('counter');
+const deleteCompletedBtn = document.getElementById('delete-completed-btn');
+
 
 let tasks = [];
 
@@ -72,6 +74,12 @@ function deleteTask(id) {
   render();
 }
 
+function deleteCompletedTasks(){
+    tasks = tasks.filter(task => !task.done);
+    save();
+    render();
+}
+
 form.addEventListener('submit', e => {
   e.preventDefault();
   const text = input.value.trim();
@@ -79,6 +87,8 @@ form.addEventListener('submit', e => {
   addTask(text);
   input.value = '';
 });
+
+deleteCompletedBtn.addEventListener('click', deleteCompletedTasks);
 
 load();
 render();
